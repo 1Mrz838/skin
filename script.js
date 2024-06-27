@@ -1,5 +1,5 @@
 const apiKey = "RYNXqKB7sJRP2OMoSvfv";
-const modelURL = "https://detect.roboflow.com";
+const modelURL = "https://detect.roboflow.com/classification-uy6nf/4";
 
 document.getElementById('uploadForm').onsubmit = function(event) {
     event.preventDefault();
