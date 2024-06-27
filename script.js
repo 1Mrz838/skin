@@ -4,24 +4,25 @@ const modelURL = "https://detect.roboflow.com/classification-uy6nf/4";
 document.getElementById('uploadForm').onsubmit = function(event) {
     event.preventDefault();
     const image = document.getElementById("imageUpload").files[0];
-    const imgElement = document.createElement("img");
-    imgElement.src = URL.createObjectURL(image);
-    imgElement.onload = async function() {
-        const prediction = await predict(imgElement);
+    const reader = new FileReader();
+
+    reader.onload = async function() {
+        const base64Image = reader.result.split(",")[1]; 
+
+        const prediction = await predict(base64Image);
         document.getElementById('result').textContent = JSON.stringify(prediction, null, 2);
     };
+
+    reader.readAsDataURL(image);
 };
 
-async function predict(image) {
-    const formData = new FormData();
-    formData.append('file', image);
-
-    const response = await fetch(modelURL, {
-        method: 'POST',
+async function predict(base64Image) {
+    const response = await fetch(`${modelURL}?api_key=${apiKey}`, {
+        method: "POST",
         headers: {
-            'Authorization': `Bearer ${apiKey}`
+            "Content-Type": "application/x-www-form-urlencoded"
         },
-        body: formData
+        body: `image=${base64Image}`
     });
 
     if (response.ok) {
