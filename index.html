@@ -7,12 +7,22 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <h1>SkinCareAI - Skin Disease Diagnosis</h1>
-    <form id="uploadForm">
-        <input type="file" id="imageUpload" accept="image/*" required>
-        <button type="submit">Upload</button>
-    </form>
-    <div id="result"></div>
+    <div class="container">
+        <header>
+            <h1>SkinCareAI</h1>
+            <p>Skin Disease Diagnosis using AI</p>
+        </header>
+        <main>
+            <form id="uploadForm">
+                <input type="file" id="imageUpload" accept="image/*" required>
+                <button type="submit">Upload and Diagnose</button>
+            </form>
+            <div id="result"></div>
+        </main>
+        <footer>
+            <p>&copy; 2024 DermaAI. All rights reserved.</p>
+        </footer>
+    </div>
     <script src="script.js"></script>
 </body>
 </html>
