@@ -1,21 +1,44 @@
 body {
     font-family: Arial, sans-serif;
-    text-align: center;
     margin: 0;
-    padding: 20px;
-    background-color: #f0f0f0;
-}
-
-h1 {
+    padding: 0;
+    background-color: #f7f7f7;
     color: #333;
 }
 
+.container {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    text-align: center;
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+}
+
+header {
+    margin-bottom: 20px;
+}
+
+header h1 {
+    margin: 0;
+    font-size: 2.5em;
+    color: #007BFF;
+}
+
+header p {
+    margin: 0;
+    font-size: 1.2em;
+    color: #555;
+}
+
 form {
-    margin: 20px 0;
+    margin-bottom: 20px;
 }
 
 input[type="file"] {
-    margin: 10px 0;
+    display: block;
+    margin: 10px auto;
 }
 
 button {
@@ -23,7 +46,9 @@ button {
     background-color: #007BFF;
     color: #fff;
     border: none;
+    border-radius: 5px;
     cursor: pointer;
+    font-size: 1em;
 }
 
 button:hover {
@@ -34,4 +59,13 @@ button:hover {
     margin-top: 20px;
     white-space: pre-wrap;
     color: #333;
+}
+
+footer {
+    margin-top: 20px;
+}
+
+footer p {
+    font-size: 0.8em;
+    color: #aaa;
 }
