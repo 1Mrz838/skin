@@ -1,5 +1,5 @@
 const apiKey = "RYNXqKB7sJRP2OMoSvfv";
-const modelURL = "https://detect.roboflow.com/classification-uy6nf/4";
+const modelURL = "https://detect.roboflow.com/classification-uy6nf/4"; 
 
 document.getElementById('uploadForm').onsubmit = function(event) {
     event.preventDefault();
@@ -7,10 +7,10 @@ document.getElementById('uploadForm').onsubmit = function(event) {
     const reader = new FileReader();
 
     reader.onload = async function() {
-        const base64Image = reader.result.split(",")[1]; 
+        const base64Image = reader.result.split(",")[1];
 
         const prediction = await predict(base64Image);
-        document.getElementById('result').textContent = JSON.stringify(prediction, null, 2);
+        displayResult(prediction);
     };
 
     reader.readAsDataURL(image);
@@ -31,5 +31,20 @@ async function predict(base64Image) {
     } else {
         console.error('Ошибка предсказания:', response.statusText);
         return null;
+    }
+}
+
+function displayResult(prediction) {
+    const resultDiv = document.getElementById('result');
+    if (prediction) {
+        resultDiv.innerHTML = `
+            <h2>Diagnosis Result:</h2>
+            <pre>${JSON.stringify(prediction, null, 2)}</pre>
+        `;
+    } else {
+        resultDiv.innerHTML = `
+            <h2>Error:</h2>
+            <p>Could not diagnose the image. Please try again.</p>
+        `;
     }
 }
