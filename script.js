@@ -1,6 +1,3 @@
-const apiKey = "RYNXqKB7sJRP2OMoSvfv";
-const modelURL = "https://detect.roboflow.com/classification-uy6nf/4"; 
-
 document.getElementById('uploadForm').onsubmit = function(event) {
     event.preventDefault();
     const image = document.getElementById("imageUpload").files[0];
@@ -17,6 +14,9 @@ document.getElementById('uploadForm').onsubmit = function(event) {
 };
 
 async function predict(base64Image) {
+    const apiKey = "RYNXqKB7sJRP2OMoSvfv";
+    const modelURL = "https://detect.roboflow.com/classification-uy6nf/5";
+
     const response = await fetch(`${modelURL}?api_key=${apiKey}`, {
         method: "POST",
         headers: {
