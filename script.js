@@ -25,10 +25,18 @@ document.getElementById('uploadForm').addEventListener('submit', async function(
 
                 const result = await response.json();
 
-                document.getElementById('result').innerHTML = `
-                    <h2>Diagnosis Result</h2>
-                    <p>${JSON.stringify(result)}</p>
-                `;
+              
+                let resultHTML = '<h2>Diagnosis Result</h2>';
+                if (result.predictions) {
+                    for (const [disease, data] of Object.entries(result.predictions)) {
+                        const confidence = (data.confidence * 100).toFixed(2);
+                        resultHTML += `<p>${disease}: ${confidence}%</p>`;
+                    }
+                } else {
+                    resultHTML += '<p>No predictions found.</p>';
+                }
+
+                document.getElementById('result').innerHTML = resultHTML;
             } catch (error) {
                 document.getElementById('result').innerHTML = `
                     <h2>Error</h2>
