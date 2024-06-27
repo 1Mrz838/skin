@@ -1,28 +1,5 @@
-let model;
-
-// Загрузите модель
-async function init() {
-    try {
-        const modelURL = "URL_К_ВАШЕЙ_МОДЕЛИ/model.json";
-        model = await tf.loadGraphModel(modelURL);
-        console.log("Модель загружена");
-    } catch (error) {
-        console.error("Ошибка загрузки модели:", error);
-    }
-}
-
-// Предсказание
-async function predict(image) {
-    try {
-        const img = tf.browser.fromPixels(image);
-        const resizedImg = tf.image.resizeBilinear(img, [224, 224]); // Измените размер в соответствии с требованиями вашей модели
-        const batchedImg = resizedImg.expandDims(0);
-        const prediction = await model.predict(batchedImg).data();
-        return prediction;
-    } catch (error) {
-        console.error("Ошибка предсказания:", error);
-    }
-}
+const apiKey = "RYNXqKB7sJRP2OMoSvfv";
+const modelURL = "https://detect.roboflow.com";
 
 document.getElementById('uploadForm').onsubmit = function(event) {
     event.preventDefault();
@@ -30,14 +7,28 @@ document.getElementById('uploadForm').onsubmit = function(event) {
     const imgElement = document.createElement("img");
     imgElement.src = URL.createObjectURL(image);
     imgElement.onload = async function() {
-        try {
-            const prediction = await predict(imgElement);
-            document.getElementById('result').textContent = JSON.stringify(prediction, null, 2);
-        } catch (error) {
-            document.getElementById('result').textContent = "Ошибка предсказания";
-            console.error("Ошибка предсказания:", error);
-        }
+        const prediction = await predict(imgElement);
+        document.getElementById('result').textContent = JSON.stringify(prediction, null, 2);
     };
 };
 
-init();
+async function predict(image) {
+    const formData = new FormData();
+    formData.append('file', image);
+
+    const response = await fetch(modelURL, {
+        method: 'POST',
+        headers: {
+            'Authorization': `Bearer ${apiKey}`
+        },
+        body: formData
+    });
+
+    if (response.ok) {
+        const result = await response.json();
+        return result;
+    } else {
+        console.error('Ошибка предсказания:', response.statusText);
+        return null;
+    }
+}
